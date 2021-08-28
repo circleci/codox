@@ -12,7 +12,7 @@ Include the following plugin in your `project.clj` file or your global
 profile:
 
 ```clojure
-:plugins [[lein-codox "0.10.7"]]
+:plugins [[org.clojars.karo/lein-codox "0.11.0"]]
 ```
 
 Then run:
@@ -25,6 +25,8 @@ This will generate API documentation in the "target/doc" subdirectory
 (or wherever your project `:target-path` is set to).
 
 ### Boot
+
+**[org.clojars.karo version not available, I don't use boot, sorry.**
 
 Add boot-codox to your build.boot dependencies and require the namespace:
 ```
