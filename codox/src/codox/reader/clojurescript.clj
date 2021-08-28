@@ -51,7 +51,7 @@
 
 (defn- read-var [file vars var]
   (-> var
-      (select-keys [:name :line :arglists :doc :dynamic :added :deprecated :doc/format])
+      (select-keys [:name :line :arglists :doc :dynamic :added :deprecated :doc/format :unstable])
       (update-some :name (comp symbol name))
       (update-some :arglists remove-quote)
       (update-some :doc correct-indent)

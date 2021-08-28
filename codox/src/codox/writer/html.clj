@@ -376,12 +376,19 @@
   (for [arglist (:arglists var)]
     (list* (:name var) arglist)))
 
-(defn- added-and-deprecated-docs [var]
+(defn ^:private not-empty-string? [s]
+  (and (string? s) (not-empty s)))
+
+(defn- api-stability-docs [var]
   (list
    (if-let [added (:added var)]
      [:h4.added "added in " added])
+   (if-let [unstable (:unstable var)]
+     [:h4.unstable "unstable" (when (not-empty-string? unstable)
+                                (format ": %s" unstable))])
    (if-let [deprecated (:deprecated var)]
-     [:h4.deprecated "deprecated" (if (string? deprecated) (str " in " deprecated))])))
+     [:h4.deprecated "deprecated" (when (not-empty-string? deprecated)
+                                    (format " in %s" deprecated))])))
 
 (defn- remove-namespaces [x namespaces]
   (if (and (symbol? x) (contains? namespaces (namespace x)))
@@ -408,7 +415,7 @@
      [:h4.type (name (:type var))])
    (if (:dynamic var)
      [:h4.dynamic "dynamic"])
-   (added-and-deprecated-docs var)
+   (api-stability-docs var)
    (if (:type-sig var)
      [:div.type-sig
       [:pre (h (type-sig namespace var))]])
@@ -438,7 +445,7 @@
     (vars-sidebar namespace)
     [:div#content.namespace-docs
      [:h1#top.anchor (h (:name namespace))]
-     (added-and-deprecated-docs namespace)
+     (api-stability-docs namespace)
      [:div.doc (format-docstring project namespace namespace)]
      (for [var (sorted-public-vars namespace)]
        (var-docs project namespace var))]]))

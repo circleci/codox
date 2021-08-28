@@ -73,3 +73,13 @@
 (def ^:dynamic *conn*
   "A dynamic var."
   nil)
+
+(defn moo
+  "An unstable function."
+  {:unstable true}
+  [x])
+
+(defn moobar
+  "An unstable function."
+  {:unstable "Experimental until 2.2"}
+  [x])

@@ -398,6 +398,18 @@ metadata key:
   (* x x))
 ```
 
+Marking elements as unstable happens as follows:
+
+```clojure
+(defn square
+  "Squares the supplied number."
+  {:unstable true}
+  [x]
+  (* x x))
+```
+
+The `:unstable` key can accept a string with an explanation.
+
 
 ## Docstring Formats
 

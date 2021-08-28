@@ -71,7 +71,7 @@
 (defn- read-var [vars var]
   (-> (meta var)
       (select-keys [:name :file :line :arglists :doc :dynamic
-                    :added :deprecated :doc/format])
+                    :added :deprecated :doc/format :unstable])
       (update-some :doc correct-indent)
       (assoc-some  :type (var-type var)
                    :type-sig (if (core-typed?) (core-typed-type var))
